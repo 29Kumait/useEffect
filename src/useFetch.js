@@ -1,8 +1,10 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const useCallbackRef = (callback) => {
   const callbackRef = useRef(callback);
-  useLayoutEffect(() => { callbackRef.current = callback; }, [ callback ]);
+  useLayoutEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
   return callbackRef;
 };
 
@@ -15,15 +17,19 @@ export const useFetch = (options) => {
     console.log("useFetch useEffect ");
     if (options.url) {
       let isCancelled = false;
-      fetch(options.url).then((response) => response.json()).then((json) => {
-        if (!isCancelled) {
-          savedOnSuccess.current?.(json);
-          setData(json);
-        }
-      });
-      return () => { isCancelled = true; };
+      fetch(options.url)
+        .then((response) => response.json())
+        .then((json) => {
+          if (!isCancelled) {
+            savedOnSuccess.current?.(json);
+            setData(json);
+          }
+        });
+      return () => {
+        isCancelled = true;
+      };
     }
-  }, [ options.url ]);
+  }, [options.url]);
 
   return {
     data,
