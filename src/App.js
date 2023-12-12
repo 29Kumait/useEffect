@@ -1,17 +1,32 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+
 import { useFetch } from "./useFetch";
+
+const useStopwatch = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(`Count = ${count}`);
+      setCount((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return count;
+};
 
 function App() {
   const [url, setUrl] = useState(null);
-  const myOptions = useMemo(() => ({ url }), [url]);
-  // const { data } = useFetch({ url });
-  const { data } = useFetch(myOptions);
+  const count = useStopwatch();
+  const { data } = useFetch({ url, onSuccess: () => console.log("success") });
 
   console.log("rendering console ");
   return (
     <div className="App">
       <div> UI-TEST .. </div>
+      <div>Count: {count} </div>
       <div> {JSON.stringify(data)} </div>
       <div>
         <button onClick={() => setUrl("/kumait.json")}> KUMAIT </button>
