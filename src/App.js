@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 
-import { useFetch } from "./useFetch";
+import {useEffect, useState} from "react";
+
+import {useFetch} from "./useFetch";
 
 const useStopwatch = () => {
   const [count, setCount] = useState(0);
@@ -20,7 +21,7 @@ const useStopwatch = () => {
 function App() {
   const [url, setUrl] = useState(null);
   const count = useStopwatch();
-  const { data } = useFetch({ url, onSuccess: () => console.log("success") });
+  const {data} = useFetch({url, onSuccess : () => console.log("success")});
 
   console.log("rendering console ");
   return (
