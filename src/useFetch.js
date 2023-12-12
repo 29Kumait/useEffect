@@ -9,7 +9,7 @@ export const useFetch = (options) => {
         .then((response) => response.json())
         .then((json) => setData(json));
     }
-  }, [options]);
+  }, [options]); // [options.url] *const { data } = useFetch({ url })
 
   return {
     data,

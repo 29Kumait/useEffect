@@ -5,7 +5,9 @@ import { useFetch } from "./useFetch";
 function App() {
   const [url, setUrl] = useState(null);
   const myOptions = useMemo(() => ({ url }), [url]);
+  // const { data } = useFetch({ url });
   const { data } = useFetch(myOptions);
+
   console.log("rendering console ");
   return (
     <div className="App">
